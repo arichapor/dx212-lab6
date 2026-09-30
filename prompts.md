@@ -96,3 +96,64 @@ console.log("4) filter+reduce (รวมเฉพาะ Dev):", devTasksTotal);
 
 **ตรวจแล้ว:** ตรวจถูกแล้ว
 
+## Part C - ดีบัก
+
+**สิ่งที่ฉันเดาก่อนถาม AI:** ควรได้ ["NGV-2", "NGV-3"] และ ควรได้ 145
+
+**Prompt:** โค้ดของฉันรันแล้วได้ผลไม่ตรงที่คาด
+
+
+
+(1) ผลที่ได้จริงจาก terminal:
+
+สายที่มาสาย: []
+
+ผู้โดยสารรวม: [object Object]6238
+
+
+
+(2) โค้ดทั้งไฟล์:
+
+const buses = [
+
+  { route: "NGV-1", passengers: 45, late: false },
+
+  { route: "NGV-2", passengers: 62, late: true },
+
+  { route: "NGV-3", passengers: 38, late: true },
+
+];
+
+
+
+const lateRoutes = buses.filter(b => { b.late }).map(b => b.route);
+
+const total = buses.reduce((sum, b) => sum + b.passengers);
+
+
+
+console.log("สายที่มาสาย:", lateRoutes);   // ควรได้ ["NGV-2", "NGV-3"]
+
+console.log("ผู้โดยสารรวม:", total);      // ควรได้ 145
+
+
+
+(3) ผลที่คาดหวัง:
+
+สายที่มาสาย ควรได้ ["NGV-2", "NGV-3"] และผู้โดยสารรวม ควรได้ 145
+
+
+
+(4) สิ่งที่ฉันเดาไว้:
+
+ไม่มี ปีกกา { }  และ ใน buses.reduce ไม่ได้ใส่ค่าเริ่มต้น 
+
+
+
+อธิบายสาเหตุก่อน แล้วค่อยให้โค้ดที่แก้ อย่าเปลี่ยนส่วนที่ไม่เกี่ยว
+
+**ผลลัพธ์ย่อ:** 1. ใน buses.filter มีการใช้ปีกกา { } แต่ไม่มีคีย์เวิร์ด return 2. ใน buses.reduce ไม่ได้ใส่ค่าเริ่มต้น (Initial Value) 
+
+**ตรวจแล้ว:** รันแล้วได้ตามคอมเม้น
+
+**เดาถูกกี่จุด:** ถูก2จุด
