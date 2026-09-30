@@ -29,7 +29,7 @@
 
 ```javascript
 const calcFare = (distanceKm) => {
-  if (typeof distanceKm !== 'number' || isNaN(distanceKm) || distanceKm < 0) {
+  if (typeof distanceKm !== "number" || isNaN(distanceKm) || distanceKm < 0) {
     return 0;
   }
   const roundedKm = Math.ceil(distanceKm);
@@ -39,9 +39,9 @@ const calcFare = (distanceKm) => {
   return 10 + (roundedKm - 2) * 2;
 };
 
-console.log('1.5 km:', calcFare(1.5));
-console.log('2 km:', calcFare(2));
-console.log('7.2 km:', calcFare(7.2));
+console.log("1.5 km:", calcFare(1.5));
+console.log("2 km:", calcFare(2));
+console.log("7.2 km:", calcFare(7.2));
 ```
 
 **ตรวจแล้ว:** ใช้ได้ — รัน `node a_fare.js` แล้วได้ผลตรงกับที่คำนวณด้วยมือทั้ง 3 กรณี
@@ -60,10 +60,10 @@ console.log('7.2 km:', calcFare(7.2));
 ตอบเป็นภาษาไทย รูปแบบ: ตาราง 2 คอลัมน์ (บรรทัดโค้ด | ทำอะไร) ไม่เกิน 10 แถว
 
 const team = [
-  { name: "ฟ้า", role: "PO", tasksDone: 5 },
-  { name: "ต้น", role: "Dev", tasksDone: 8 },
-  { name: "มายด์", role: "SM", tasksDone: 3 },
-  { name: "เจ", role: "Dev", tasksDone: 6 },
+{ name: "ฟ้า", role: "PO", tasksDone: 5 },
+{ name: "ต้น", role: "Dev", tasksDone: 8 },
+{ name: "มายด์", role: "SM", tasksDone: 3 },
+{ name: "เจ", role: "Dev", tasksDone: 6 },
 ];
 
 // 1) map: รายชื่อ "ชื่อ (บทบาท)"
@@ -80,8 +80,8 @@ console.log("3) reduce (รวมทั้งทีม):", totalTasks);
 
 // 4) ต่อท่า: รวม tasksDone เฉพาะ Dev
 const devTasksTotal = team
-  .filter((member) => member.role === "Dev")
-  .reduce((sum, member) => sum + member.tasksDone, 0);
+.filter((member) => member.role === "Dev")
+.reduce((sum, member) => sum + member.tasksDone, 0);
 console.log("4) filter+reduce (รวมเฉพาะ Dev):", devTasksTotal);
 
 **ผลลัพธ์ย่อ:** Aiพยายามอธิบายโค้ดบรรทัดต่างๆว่ามีหน้าที่อะไร
@@ -92,7 +92,7 @@ console.log("4) filter+reduce (รวมเฉพาะ Dev):", devTasksTotal);
 
 **Prompt:** รีวิวโค้ดนี้ในฐานะ senior developer: บอกจุดที่ควรปรับปรุง 3 ข้อ เรียงตามความสำคัญ พร้อมเหตุผลและโค้ดที่แก้แล้ว
 
-**ผลลัพธ์ย่อ:** 1. หลีกเลี่ยง Magic Strings (ความสำคัญอันดับ 1 - Critical Risk)  2. ลดการคำนวณซ้ำซ้อนด้วย Single-pass Reduction (ความสำคัญอันดับ 2 - Performance) 3. ประกาศ Type/Structure ของข้อมูลให้ชัดเจนด้วย JSDoc หรือ TypeScript (ความสำคัญอันดับ 3 - Developer Experience)
+**ผลลัพธ์ย่อ:** 1. หลีกเลี่ยง Magic Strings (ความสำคัญอันดับ 1 - Critical Risk) 2. ลดการคำนวณซ้ำซ้อนด้วย Single-pass Reduction (ความสำคัญอันดับ 2 - Performance) 3. ประกาศ Type/Structure ของข้อมูลให้ชัดเจนด้วย JSDoc หรือ TypeScript (ความสำคัญอันดับ 3 - Developer Experience)
 
 **ตรวจแล้ว:** ตรวจถูกแล้ว
 
@@ -102,58 +102,78 @@ console.log("4) filter+reduce (รวมเฉพาะ Dev):", devTasksTotal);
 
 **Prompt:** โค้ดของฉันรันแล้วได้ผลไม่ตรงที่คาด
 
-
-
 (1) ผลที่ได้จริงจาก terminal:
 
 สายที่มาสาย: []
 
 ผู้โดยสารรวม: [object Object]6238
 
-
-
 (2) โค้ดทั้งไฟล์:
 
 const buses = [
 
-  { route: "NGV-1", passengers: 45, late: false },
+{ route: "NGV-1", passengers: 45, late: false },
 
-  { route: "NGV-2", passengers: 62, late: true },
+{ route: "NGV-2", passengers: 62, late: true },
 
-  { route: "NGV-3", passengers: 38, late: true },
+{ route: "NGV-3", passengers: 38, late: true },
 
 ];
-
-
 
 const lateRoutes = buses.filter(b => { b.late }).map(b => b.route);
 
 const total = buses.reduce((sum, b) => sum + b.passengers);
 
+console.log("สายที่มาสาย:", lateRoutes); // ควรได้ ["NGV-2", "NGV-3"]
 
-
-console.log("สายที่มาสาย:", lateRoutes);   // ควรได้ ["NGV-2", "NGV-3"]
-
-console.log("ผู้โดยสารรวม:", total);      // ควรได้ 145
-
-
+console.log("ผู้โดยสารรวม:", total); // ควรได้ 145
 
 (3) ผลที่คาดหวัง:
 
 สายที่มาสาย ควรได้ ["NGV-2", "NGV-3"] และผู้โดยสารรวม ควรได้ 145
 
-
-
 (4) สิ่งที่ฉันเดาไว้:
 
-ไม่มี ปีกกา { }  และ ใน buses.reduce ไม่ได้ใส่ค่าเริ่มต้น 
-
-
+ไม่มี ปีกกา { } และ ใน buses.reduce ไม่ได้ใส่ค่าเริ่มต้น
 
 อธิบายสาเหตุก่อน แล้วค่อยให้โค้ดที่แก้ อย่าเปลี่ยนส่วนที่ไม่เกี่ยว
 
-**ผลลัพธ์ย่อ:** 1. ใน buses.filter มีการใช้ปีกกา { } แต่ไม่มีคีย์เวิร์ด return 2. ใน buses.reduce ไม่ได้ใส่ค่าเริ่มต้น (Initial Value) 
+**ผลลัพธ์ย่อ:** 1. ใน buses.filter มีการใช้ปีกกา { } แต่ไม่มีคีย์เวิร์ด return 2. ใน buses.reduce ไม่ได้ใส่ค่าเริ่มต้น (Initial Value)
 
 **ตรวจแล้ว:** รันแล้วได้ตามคอมเม้น
 
 **เดาถูกกี่จุด:** ถูก2จุด
+
+## Part D - User Story
+
+**User Story:** "ในฐานะผู้ใช้ ฉันอยากเห็นรายการเมนูที่ราคาไม่เกินงบ"
+
+**Prompt:**
+
+```
+คุณคือนักพัฒนา JavaScript อาวุโส
+
+เขียนฟังก์ชัน filterMenuByBudget(items, budget)
+
+บริบท: แอปสั่งอาหาร User Story คือ "ในฐานะผู้ใช้ ฉันอยากเห็นรายการเมนูที่ราคาไม่เกินงบ"
+ข้อมูลเป็น array ของ object ที่มี field: id, name, price, category
+
+ข้อจำกัด: JavaScript (ES6+, รันด้วย Node 18+), เป็นฟังก์ชัน JavaScript ล้วนที่ทำงานกับ array ของ object,
+ไม่มี UI, ไม่ใช้ library, มี comment ภาษาไทยสั้น ๆ
+
+รูปแบบ: ตอบเป็นโค้ดอย่างเดียว พร้อมข้อมูลจำลอง และ console.log ทดสอบ 3 กรณี รวมกรณีขอบ 1 กรณี
+```
+
+**คำถามที่ถามกลับก่อนเขียนโค้ด และคำตอบ:**
+
+1. ราคาเท่ากับงบพอดีให้นับรวมไหม → นับรวม (ใช้ `<=`)
+2. ถ้างบไม่ใช่ตัวเลขหรือติดลบให้ทำอย่างไร → คืน array ว่าง `[]`
+3. ต้องเรียงผลลัพธ์ไหม → เรียงราคาน้อยไปมาก
+
+**ผลลัพธ์ย่อ:** ได้ฟังก์ชัน `filterMenuByBudget` ใช้ `filter` กรองราคา `<=` งบ แล้ว `sort` ราคาน้อยไปมาก ตรวจงบที่ผิดปกติแล้วคืน `[]` พร้อมข้อมูลจำลอง 5 เมนู
+
+**ตรวจแล้ว:** ใช้ได้ — รัน `node d_story.js` แล้วผลตรงกับที่คำนวณด้วยมือทั้งกรณีปกติ (งบ 50), กรณีเท่ากับราคาพอดี (งบ 35) และกรณีขอบ (งบ -10, 'abc', 10)
+
+**รอบที่ iterate:** 1 — ผ่านตั้งแต่รอบแรก ไม่ติดปัญหา
+
+**สิ่งที่ User Story ทีมยังไม่ระบุ (จากคำถามของ AI):** ราคาเท่างบนับรวมไหม, งบที่ผิดปกติต้องทำอย่างไร, ต้องเรียงผลลัพธ์หรือไม่ (ควรเพิ่มเป็น acceptance criteria ใน Mini Project #1)
