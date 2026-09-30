@@ -52,3 +52,47 @@ console.log('7.2 km:', calcFare(7.2));
 **รอบที่ iterate:** 1 — ได้ผลถูกตั้งแต่รอบแรก ไม่ต้องแก้
 
 **ข้อสังเกต:** A2 ต่างจาก A1 ตรงที่ระบุครบ 5 ส่วน (บทบาท งาน บริบท ข้อจำกัด รูปแบบ) โดยเฉพาะ **บริบท** (อัตราค่าโดยสาร กฎปัดเศษ กรณี input ผิด) ทำให้ได้โค้ดที่ใช้ได้ทันที
+
+## Part B1 - อธิบายโค้ด
+
+**Prompt:** อธิบายโค้ดนี้ทีละบรรทัดให้นักศึกษาปี 2 ที่เพิ่งเรียน map/filter/reduce เข้าใจ
+
+ตอบเป็นภาษาไทย รูปแบบ: ตาราง 2 คอลัมน์ (บรรทัดโค้ด | ทำอะไร) ไม่เกิน 10 แถว
+
+const team = [
+  { name: "ฟ้า", role: "PO", tasksDone: 5 },
+  { name: "ต้น", role: "Dev", tasksDone: 8 },
+  { name: "มายด์", role: "SM", tasksDone: 3 },
+  { name: "เจ", role: "Dev", tasksDone: 6 },
+];
+
+// 1) map: รายชื่อ "ชื่อ (บทบาท)"
+const nameList = team.map((member) => `${member.name} (${member.role})`);
+console.log("1) map:", nameList);
+
+// 2) filter: เฉพาะ Dev
+const devs = team.filter((member) => member.role === "Dev");
+console.log("2) filter (Dev):", devs);
+
+// 3) reduce: รวม tasksDone ทั้งทีม
+const totalTasks = team.reduce((sum, member) => sum + member.tasksDone, 0);
+console.log("3) reduce (รวมทั้งทีม):", totalTasks);
+
+// 4) ต่อท่า: รวม tasksDone เฉพาะ Dev
+const devTasksTotal = team
+  .filter((member) => member.role === "Dev")
+  .reduce((sum, member) => sum + member.tasksDone, 0);
+console.log("4) filter+reduce (รวมเฉพาะ Dev):", devTasksTotal);
+
+**ผลลัพธ์ย่อ:** Aiพยายามอธิบายโค้ดบรรทัดต่างๆว่ามีหน้าที่อะไร
+
+**ตรวจแล้ว:** ตรวจถูกแล้ว
+
+## Part B2 - รีวิวโค้ด
+
+**Prompt:** รีวิวโค้ดนี้ในฐานะ senior developer: บอกจุดที่ควรปรับปรุง 3 ข้อ เรียงตามความสำคัญ พร้อมเหตุผลและโค้ดที่แก้แล้ว
+
+**ผลลัพธ์ย่อ:** 1. หลีกเลี่ยง Magic Strings (ความสำคัญอันดับ 1 - Critical Risk)  2. ลดการคำนวณซ้ำซ้อนด้วย Single-pass Reduction (ความสำคัญอันดับ 2 - Performance) 3. ประกาศ Type/Structure ของข้อมูลให้ชัดเจนด้วย JSDoc หรือ TypeScript (ความสำคัญอันดับ 3 - Developer Experience)
+
+**ตรวจแล้ว:** ตรวจถูกแล้ว
+
